@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Calendario de Turnos</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="page-header">
+      <div>
+        <p class="eyebrow">Demo rápida</p>
+        <h1>Calendario de turnos</h1>
+        <p class="subtitle">
+          Pega los datos exportados desde Excel/CSV para generar un calendario mensual
+          con colores por turno. Incluímos un ejemplo para que pruebes de inmediato.
+        </p>
+      </div>
+      <div class="cta-group">
+        <button type="button" id="loadSample" class="ghost-btn">Cargar ejemplo</button>
+        <a class="link-btn" href="#instrucciones">¿Cómo preparo mi archivo?</a>
+      </div>
+    </header>
+
+    <main>
+      <section class="card" aria-labelledby="entradaTitulo">
+        <div class="card-header">
+          <h2 id="entradaTitulo">Datos desde Excel</h2>
+          <p>Admite columnas con fecha, colaborador y turno (en cualquier orden).</p>
+        </div>
+        <form id="csvForm">
+          <label for="csvInput" class="sr-only">Pega el contenido CSV</label>
+          <textarea id="csvInput" name="csvInput" placeholder="Fecha,Colaborador,Turno\n2025-01-02,María Díaz,Turno Día" rows="10" spellcheck="false"></textarea>
+          <div class="form-actions">
+            <label class="checkbox">
+              <input type="checkbox" id="collapsePeople" />
+              <span>Mostrar solo el nombre del turno (ocultar colaborador)</span>
+            </label>
+            <button type="submit" class="primary-btn">Generar calendario</button>
+          </div>
+        </form>
+      </section>
+
+      <section class="card" aria-labelledby="reporteTitulo">
+        <div class="card-header">
+          <h2 id="reporteTitulo">Calendario generado</h2>
+          <p class="helper">El resultado aparece debajo. Puedes volver a generar cuando quieras.</p>
+        </div>
+        <div id="calendarOutput" class="calendar-output" aria-live="polite"></div>
+      </section>
+
+      <section class="card" id="instrucciones" aria-labelledby="instruccionesTitulo">
+        <div class="card-header">
+          <h2 id="instruccionesTitulo">Cómo exportar desde Excel</h2>
+        </div>
+        <ol class="instructions">
+          <li>Deja solo las columnas necesarias (por ejemplo: Fecha, Colaborador, Turno).</li>
+          <li>Guarda una copia como CSV (Archivo &gt; Guardar como &gt; .csv) o copia/pega directamente.</li>
+          <li>Asegúrate de que las fechas estén en formato <strong>DD/MM/AAAA</strong> o <strong>AAAA-MM-DD</strong>.</li>
+          <li>Pega el contenido en el cuadro superior y presiona <em>Generar calendario</em>.</li>
+          <li>Opcional: marca la casilla para ocultar los nombres y ver solo el tipo de turno.</li>
+        </ol>
+      </section>
+    </main>
+
+    <template id="monthTemplate">
+      <section class="month" aria-live="polite">
+        <div class="month-header">
+          <h3></h3>
+          <p class="month-summary"></p>
+        </div>
+        <table class="calendar-table" role="grid">
+          <thead>
+            <tr>
+              <th>Lu</th>
+              <th>Ma</th>
+              <th>Mi</th>
+              <th>Ju</th>
+              <th>Vi</th>
+              <th>Sa</th>
+              <th>Do</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </section>
+    </template>
+
+    <script src="script.js" type="module"></script>
+  </body>
+</html>
