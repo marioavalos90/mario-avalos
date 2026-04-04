@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Toma de Inventario</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app">
+      <header class="app__header">
+        <h1>Toma de Inventario</h1>
+        <p>Registra, compara y exporta tus conteos de inventario.</p>
+      </header>
+
+      <section class="card">
+        <h2>Datos generales</h2>
+        <div class="grid grid--4">
+          <label class="field">
+            <span>Empresa</span>
+            <input id="empresa" type="text" placeholder="Ej. Comercial ABC" />
+          </label>
+          <label class="field">
+            <span>Almacén</span>
+            <input id="almacen" type="text" placeholder="Ej. Cedis Norte" />
+          </label>
+          <label class="field">
+            <span>Responsable</span>
+            <input id="responsable" type="text" placeholder="Nombre completo" />
+          </label>
+          <label class="field">
+            <span>Fecha</span>
+            <input id="fecha" type="date" />
+          </label>
+        </div>
+      </section>
+
+      <section class="card">
+        <h2>Registrar producto contado</h2>
+        <form id="item-form" class="grid grid--4">
+          <label class="field">
+            <span>Código *</span>
+            <input id="codigo" name="codigo" type="text" required />
+          </label>
+          <label class="field">
+            <span>Descripción *</span>
+            <input id="descripcion" name="descripcion" type="text" required />
+          </label>
+          <label class="field">
+            <span>Categoría</span>
+            <input id="categoria" name="categoria" type="text" />
+          </label>
+          <label class="field">
+            <span>Ubicación</span>
+            <input id="ubicacion" name="ubicacion" type="text" />
+          </label>
+          <label class="field">
+            <span>Stock esperado</span>
+            <input
+              id="esperado"
+              name="esperado"
+              type="number"
+              step="1"
+              min="0"
+              value="0"
+            />
+          </label>
+          <label class="field">
+            <span>Stock contado *</span>
+            <input
+              id="contado"
+              name="contado"
+              type="number"
+              step="1"
+              min="0"
+              required
+            />
+          </label>
+          <label class="field field--full">
+            <span>Observaciones</span>
+            <textarea id="observaciones" name="observaciones" rows="2"></textarea>
+          </label>
+          <div class="actions field--full">
+            <button id="submit-btn" type="submit">Agregar producto</button>
+            <button id="cancel-edit-btn" type="button" class="btn-secondary" hidden>
+              Cancelar edición
+            </button>
+          </div>
+        </form>
+      </section>
+
+      <section class="card">
+        <h2>Resumen</h2>
+        <div class="stats">
+          <article class="stat">
+            <h3>Productos</h3>
+            <p id="total-productos">0</p>
+          </article>
+          <article class="stat">
+            <h3>Esperado total</h3>
+            <p id="total-esperado">0</p>
+          </article>
+          <article class="stat">
+            <h3>Contado total</h3>
+            <p id="total-contado">0</p>
+          </article>
+          <article class="stat">
+            <h3>Diferencia total</h3>
+            <p id="total-diferencia">0</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="card">
+        <div class="toolbar">
+          <label class="field">
+            <span>Buscar</span>
+            <input
+              id="buscar"
+              type="search"
+              placeholder="Código, descripción, categoría, ubicación"
+            />
+          </label>
+          <label class="field">
+            <span>Filtrar estado</span>
+            <select id="filtro-estado">
+              <option value="todos">Todos</option>
+              <option value="igual">Cuadra</option>
+              <option value="faltante">Faltante</option>
+              <option value="sobrante">Sobrante</option>
+            </select>
+          </label>
+          <div class="toolbar__actions">
+            <button id="exportar-csv" type="button" class="btn-secondary">
+              Exportar CSV
+            </button>
+            <button id="exportar-json" type="button" class="btn-secondary">
+              Respaldo JSON
+            </button>
+            <button id="importar-json-btn" type="button" class="btn-secondary">
+              Cargar JSON
+            </button>
+            <input id="importar-json" type="file" accept=".json" hidden />
+            <button id="limpiar-datos" type="button" class="btn-danger">
+              Limpiar todo
+            </button>
+          </div>
+        </div>
+
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>#</th>
+                <th>Código</th>
+                <th>Descripción</th>
+                <th>Categoría</th>
+                <th>Ubicación</th>
+                <th>Esperado</th>
+                <th>Contado</th>
+                <th>Diferencia</th>
+                <th>Estado</th>
+                <th>Observaciones</th>
+                <th>Acciones</th>
+              </tr>
+            </thead>
+            <tbody id="tabla-productos">
+              <tr>
+                <td colspan="11" class="empty-row">
+                  Sin productos cargados todavía.
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+
+    <script src="app.js"></script>
+  </body>
+</html>
